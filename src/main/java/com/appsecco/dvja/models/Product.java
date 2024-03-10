@@ -5,7 +5,7 @@ import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
-
+@Entity
 @Entity
 @Table(name = "products")
 public class Product {
