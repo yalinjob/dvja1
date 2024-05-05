@@ -45,3 +45,13 @@ jobs:
           cx_client_id: ${{ secrets.CLIENT_ID }}
           cx_client_secret: ${{ secrets.SECRET }}          
           additional_params: --sast-incremental --scan-types sast,sca,kics --sast-filter "!**/node_modules/**,!**/tests/**,!**/*.test.*,!.svn,!.hg,!.git,!.bzr,!bin,!obj,!backup,!.idea,!Tools,!**/*.DS_Store,!**/*.ipr,!**/*.iws,!**/*.bak,!**/*.tmp,!**/*.aac,!**/*.aif,!**/*.iff,!**/*.m3u,!**/*.mid,!**/*.mp3,!**/*.mpa,!**/*.ra,!**/*.wav,!**/*.wma,!**/*.3g2,!**/*.3gp,!**/*.asf,!**/*.asx,!**/*.avi,!**/*.flv,!**/*.mov,!**/*.mp4,!**/*.mpg, !**/*.rm,!**/*.swf,!**/*.vob,!**/*.wmv,!**/*.bmp,!**/*.gif,!**/*.jpg,!**/*.png,!**/*.psd,!**/*.tif,!**/*.swf,!**/*.jar,!**/*.zip,!**/*.rar,!**/*.exe,!**/*.dll,!**/*.pdb, !**/*.7z,!**/*.gz,!**/*.tar.gz,!**/*.tar,!**/*.gz,!**/*.ahtm,!**/*.ahtml,!**/*.fhtml,!**/*.hdm,!**/*.hdml,!**/*.hsql,!**/*.ht,!**/*.hta,!**/*.htc,!**/*.htd,!**/*.war,!**/*.ear,!**/*.htmls,!**/*.ihtml,!**/*.mht,!**/*.mhtm,!**/*.mhtml,!**/*.ssi,!**/*.stm,!**/*.stml,!**/*.ttml,!**/*.txn,!**/*.xhtm,!**/*.xhtml,!**/*.class,!**/*.iml"
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: Dockerfile
+          push: true
+          tags: yalina/yalina:myapp
+        env:
+         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
