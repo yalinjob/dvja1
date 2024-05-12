@@ -78,6 +78,5 @@ jobs:
           #jfrog rt docker-push yalina/yalina:myapp devnet-ya--virtual-version1/yalina:myapp
           #jfrog rt docker-push yalina/yalina:myapp --url=https://soleng.jfrog.io/artifactory/devnet-ya--virtual-version1/          
           jfrog rt docker-push yalina/yalina:myapp devnet-ya--virtual-version1/yalina:myapp --url="$JF_ARTIFACTORY_URL"
-          env:
-          JF_ARTIFACTORY_URL: ${{ secrets.JF_ARTIFACTORY_URL }}
+    
 
