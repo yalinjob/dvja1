@@ -75,4 +75,5 @@ jobs:
 
       - name: Push Docker image to Artifactory
         run: |
-          jfrog rt docker-push yalina/yalina:myapp devnet-ya--virtual-version1/yalina:myapp
+          #jfrog rt docker-push yalina/yalina:myapp devnet-ya--virtual-version1/yalina:myapp
+          jfrog rt docker-push yalina/yalina:myapp devnet-ya--virtual-version1/yalina:myapp --url=https://soleng.jfrog.io/artifactory/devnet-ya--virtual-version1/
