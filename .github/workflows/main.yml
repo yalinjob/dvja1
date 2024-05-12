@@ -77,4 +77,4 @@ jobs:
         run: |
           #jfrog rt docker-push yalina/yalina:myapp devnet-ya--virtual-version1/yalina:myapp
           #jfrog rt docker-push yalina/yalina:myapp --url=https://soleng.jfrog.io/artifactory/devnet-ya--virtual-version1/          
-          jfrog rt docker-push yalina/yalina:myapp devnet-ya--virtual-version1/yalina:myapp
+          jfrog rt docker-push yalina/yalina:myapp --url=devnet-ya--virtual-version1/yalina:myapp
