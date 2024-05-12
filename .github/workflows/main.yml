@@ -65,7 +65,7 @@ jobs:
 
       - name: Configure JFrog CLI
         run: |
-          jfrog rt config --interactive=false --url="https://soleng.jfrog.io/artifactory/devnet-ya--virtual-version1/" ----access-token="eyJ2ZXIiOiIyIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYiLCJraWQiOiJsYkpadzNJUU13WXBBSWNRa01RRjN0dlA2Yml5M3dWcXdrQ0txUkxLaXhRIn0.eyJzdWIiOiJqZmFjQDAxZTlycTMza3ljMHQxMWtwangybmcwemo1L3VzZXJzL3lhbGluYSIsInNjcCI6ImFwcGxpZWQtcGVybWlzc2lvbnMvdXNlciIsImF1ZCI6IipAKiIsImlzcyI6ImpmZmVAMDFlOXJxMzNreWMwdDExa3BqeDJuZzB6ajUiLCJpYXQiOjE3MTU1MTM4OTAsImp0aSI6IjFmMzgzMDIwLTA3NzItNGY5OC1hYmFiLTI1NDkzM2Y1MzFhYiJ9.fDQKcO8JgzhfzNKjrVHQzA8r4tkTWR2IQBe5LCJlJiRaXmf1uN3z8Q4VstgOWISW57Qi3kKbhEQHdlx3pa9jjUxn4MFpv6SC7hQSzmmPkA4n_pukEKHX2Zdy0JKMVm27GCy6xFPbVHx2x9cBmCTNxT65Zad95kfbcZhATMiz3qNB0oVF40lvu3iIlgpIzR3NITRDMixfQaL2wkEk9F-g-T_STPhyTZgGgcrzCXeti_x9Z5xQo2-U7sKtg5ZfsQ1e2BQT4_dIXVyKu0BJsMiFvj6wARfdxJcmssuGW_JzpZ8z4VAJ_r_bHmidw0k5RK2RCMmlLsEWv4qre1W0YmWfXw"  --interactive=false
+          jfrog rt config --interactive=false --url="https://soleng.jfrog.io/artifactory/devnet-ya--virtual-version1/" --access-token=${{secert.JFROG_AT}}  --interactive=false
 
       - name: Push Docker image to Artifactory
         run: |
