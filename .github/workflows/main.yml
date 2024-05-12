@@ -60,8 +60,10 @@ jobs:
           tags: yalina/yalina:myapp
           
       - name: Install JFrog CLI
-        run: |
-          curl -fL https://getcli.jfrog.io | sh
+        uses: jfrog/setup-jfrog-cli@v3
+      
+      - name: Verify JFrog CLI Installation
+        run: jfrog -v
 
       - name: Configure JFrog CLI
         run: |
