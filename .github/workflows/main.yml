@@ -71,8 +71,8 @@ jobs:
       - name: Configure JFrog CLI
         run: |
           export JF_ARTIFACTORY_URL="https://soleng.jfrog.io/artifactory/devnet-ya--virtual-version1/"
-          export JF_ARTIFACTORY_ACCESS_TOKEN="${{ secrets.JFROG_ACCESS_TOKEN }}"
+          export JF_ARTIFACTORY_ACCESS_TOKEN="${{ secrets.JFROG_AT }}"
 
       - name: Push Docker image to Artifactory
         run: |
-          jf rt docker-push yalina/yalina:myapp devnet-ya--virtual-version1/yalina:myapp
+          jf rt docker-push yalina/yalina:myapp devnet-ya--virtual-version1/yalina:myapp --url=https://soleng.jfrog.io/artifactory/devnet-ya--virtual-version1/
