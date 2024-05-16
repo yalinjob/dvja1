@@ -78,6 +78,8 @@ jobs:
           #jfrog rt docker-push yalina/yalina:myapp devnet-ya--virtual-version1/yalina:myapp
           #jfrog rt docker-push yalina/yalina:myapp --url=https://soleng.jfrog.io/artifactory/devnet-ya--virtual-version1/          
           #jfrog rt docker-push yalina/yalina:myapp devnet-ya--virtual-version1/yalina:myapp --url="$JF_URL" --access-token="$JF_ACCESS_TOKEN"
+          echo "JF_URL: $JF_URL"
+          echo "JF_ACCESS_TOKEN: $JF_ACCESS_TOKEN"
           jf rt ping --url="$JF_URL" --access-token="$JF_ACCESS_TOKEN"
 
  
