@@ -91,7 +91,7 @@ jobs:
 
           #echo "JF_URL: $JF_URL"
           #echo "JF_ACCESS_TOKEN: $JF_ACCESS_TOKEN"
-          jf rt ping --url=https://soleng.jfrog.io 
+          jf rt ping --url=https://soleng.jfrog.io --access-token="$JF_ACCESS_TOKEN"
 
  
  
