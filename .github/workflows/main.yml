@@ -78,11 +78,14 @@ jobs:
         env:
          JF_URL: ${{ secrets.JF_URL }}
          JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN  }}
+
+         
         run: |
           #jfrog rt docker-push yalina/yalina:myapp devnet-ya--virtual-version1/yalina:myapp
           #jfrog rt docker-push yalina/yalina:myapp --url=https://soleng.jfrog.io/artifactory/devnet-ya--virtual-version1/          
           #jfrog rt docker-push yalina/yalina:myapp devnet-ya--virtual-version1/yalina:myapp --url="$JF_URL" --access-token="$JF_ACCESS_TOKEN"
-          JFROG_CLI_LOG_LEVEL: 'DEBUG'
+          export JFROG_CLI_LOG_LEVEL='DEBUG'
+           
 
           echo "JF_URL: $JF_URL"
           echo "JF_ACCESS_TOKEN: $JF_ACCESS_TOKEN"
