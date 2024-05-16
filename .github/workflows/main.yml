@@ -64,6 +64,8 @@ jobs:
           
       - name: Install JFrog CLI
         uses: jfrog/setup-jfrog-cli@v3
+        with:
+         version: 2.56.1
       
       - name: Verify JFrog CLI Installation
         run: jfrog -v
