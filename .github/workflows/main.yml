@@ -1,4 +1,4 @@
-name: Checkmarx One Scan
+name:  One Scan
 on:
   workflow_dispatch:
     inputs:
@@ -22,6 +22,10 @@ on:
       - main
       - master
       - dev
+
+
+env:
+  JFROG_CLI_LOG_LEVEL: 'DEBUG'
 jobs:
   build:
     runs-on: ubuntu-latest
