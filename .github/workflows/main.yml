@@ -52,7 +52,7 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: ç
+          tags: yalina/yalina:myapp
 
       - name: Pull Docker image from Docker Hub
         run: docker pull yalina/yalina:myapp
