@@ -54,7 +54,8 @@ jobs:
           push: true
           tags: yalina/yalina:myapp
 
-     
+      #- name: Pull Docker image from Docker Hub
+       # run: docker pull ${{ secrets.DOCKER_USERNAME }}/myapp:latest
 
       - name: Install JFrog CLI
         uses: jfrog/setup-jfrog-cli@v4
@@ -77,7 +78,7 @@ jobs:
         run: echo "${{ secrets.JF_ACCESS_TOKEN }}" | docker login ${{ secrets.JF_URL }} --username="${{ secrets.JF_USER }}" --password-stdin
 
       - name: Push Docker image to JFrog Artifactory
-        run:  docker push ${{ secrets.JF_URL }}/devnet-ya--virtual-version1/myapp:latest
+        run:   jf docker push yalina/yalina:myapp devnet-ya--virtual-version1/yalina:myapp
         #jf docker push yalina/yalina:myapp ${{ secrets.JF_URL }}/devnet-ya--virtual-version1/yalina:myapp 
 
         
