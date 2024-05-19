@@ -80,3 +80,5 @@ jobs:
         run:  jf docker push yalina/yalina:myapp devnet-ya--virtual-version1/yalina:myapp --url="$JF_URL"
 
         
+
+        
