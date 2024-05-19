@@ -80,8 +80,7 @@ jobs:
         run: |
           #jfrog rt docker-push yalina/yalina:myapp devnet-ya--virtual-version1/yalina:myapp
           #jfrog rt docker-push yalina/yalina:myapp --url=https://soleng.jfrog.io/artifactory/devnet-ya--virtual-version1/
-          echo "${{ secrets.DOCKER_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-
+          echo $JF_ACCESS_TOKEN | docker login $JF_URL --username=${{ secrets.JF_USERNAME }} --password-stdin
           jf docker push yalina/yalina:myapp devnet-ya--virtual-version1/yalina:myapp --url="$JF_URL" --access-token="$JF_ACCESS_TOKEN"
           export JFROG_CLI_LOG_LEVEL='DEBUG'
           # Ping the server
