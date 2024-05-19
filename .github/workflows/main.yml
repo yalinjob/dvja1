@@ -52,10 +52,10 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/myapp:latest
+          tags: ç
 
       - name: Pull Docker image from Docker Hub
-        run: docker pull ${{ secrets.DOCKER_USERNAME }}/myapp:latest
+        run: docker pull yalina/yalina:myapp
 
       #- name: Tag Docker image for JFrog Artifactory
       #  run: docker tag ${{ secrets.DOCKER_USERNAME }}/myapp:latest ${{ secrets.JF_URL }}/devnet-ya--virtual-version1/myapp:latest
@@ -81,7 +81,7 @@ jobs:
         run: echo "${{ secrets.JF_ACCESS_TOKEN }}" | docker login ${{ secrets.JF_URL }} --username="${{ secrets.JF_USER }}" --password-stdin
 
       - name: Push Docker image to JFrog Artifactory
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/myapp:latest devnet-ya--virtual-version1/myapp:latest
+        run: docker push yalina/yalina:myapp  devnet-ya--virtual-version1/myapp:latest
 
 
         
