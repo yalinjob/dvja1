@@ -65,6 +65,9 @@ jobs:
 
       - name: Verify JFrog CLI Installation
         run: jfrog -v
+        
+      - name: Check DNS Resolution
+        run: nslookup soleng.jfrog.io
 
       - name: Configure JFrog CLI and Push Docker Image
         env:
