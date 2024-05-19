@@ -72,5 +72,5 @@ jobs:
           JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
         run: |
           echo $JF_ACCESS_TOKEN | docker login $JF_URL --username=${{ secrets.JF_USERNAME }} --password-stdin
-          jf docker push your-registry-domain/path/yalina:myapp devnet-ya--virtual-version1/yalina:myapp --url="$JF_URL"
+          jf docker push yalina/yalina:myapp devnet-ya--virtual-version1/yalina:myapp --url="$JF_URL"
           jf rt ping
