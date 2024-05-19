@@ -1,4 +1,4 @@
-name:  One Scan
+name: One Scan
 on:
   workflow_dispatch:
     inputs:
@@ -8,9 +8,9 @@ on:
         default: 'warning'
         type: choice
         options:
-        - info
-        - warning
-        - debug
+          - info
+          - warning
+          - debug
 
   push:
     branches:
@@ -22,7 +22,6 @@ on:
       - main
       - master
       - dev
-
 
 env:
   JFROG_CLI_LOG_LEVEL: 'DEBUG'
@@ -38,52 +37,35 @@ jobs:
           wget https://sca-downloads.s3.amazonaws.com/cli/latest/ScaResolver-linux64.tar.gz
           tar -xzvf ScaResolver-linux64.tar.gz
           rm -rf ScaResolver-linux64.tar.gz
-          
-      #- name: Checkmarx One CLI Action
-       # uses: checkmarx/ast-github-action@main #Github Action version
-       # with:
-        #  project_name:  ${{ github.repository }}
-        #  cx_tenant: yalin_demo
-        #  base_uri: https://eu.ast.checkmarx.net
-        #  cx_client_id: ${{ secrets.CLIENT_ID }}
-       #   cx_client_secret: ${{ secrets.SECRET }}          
-       #   additional_params: --sast-incremental --scan-types sast,sca,kics --sast-filter "!**/node_modules/**,!**/tests/**,!**/*.test.*,!.svn,!.hg,!.git,!.bzr,!bin,!obj,!backup,!.idea,!Tools,!**/*.DS_Store,!**/*.ipr,!**/*.iws,!**/*.bak,!**/*.tmp,!**/*.aac,!**/*.aif,!**/*.iff,!**/*.m3u,!**/*.mid,!**/*.mp3,!**/*.mpa,!**/*.ra,!**/*.wav,!**/*.wma,!**/*.3g2,!**/*.3gp,!**/*.asf,!**/*.asx,!**/*.avi,!**/*.flv,!**/*.mov,!**/*.mp4,!**/*.mpg, !**/*.rm,!**/*.swf,!**/*.vob,!**/*.wmv,!**/*.bmp,!**/*.gif,!**/*.jpg,!**/*.png,!**/*.psd,!**/*.tif,!**/*.swf,!**/*.jar,!**/*.zip,!**/*.rar,!**/*.exe,!**/*.dll,!**/*.pdb, !**/*.7z,!**/*.gz,!**/*.tar.gz,!**/*.tar,!**/*.gz,!**/*.ahtm,!**/*.ahtml,!**/*.fhtml,!**/*.hdm,!**/*.hdml,!**/*.hsql,!**/*.ht,!**/*.hta,!**/*.htc,!**/*.htd,!**/*.war,!**/*.ear,!**/*.htmls,!**/*.ihtml,!**/*.mht,!**/*.mhtm,!**/*.mhtml,!**/*.ssi,!**/*.stm,!**/*.stml,!**/*.ttml,!**/*.txn,!**/*.xhtm,!**/*.xhtml,!**/*.class,!**/*.iml"
 
       - name: Maven Build
         run: mvn clean install          
-        
+
       - name: Login to Docker Hub with Access Token
         run: echo "${{ secrets.DOCKER_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
           context: .
           file: Dockerfile
           push: true
-          tags: yalina/yalina:myapp
+          tags: your-registry-domain/path/yalina:myapp
           
       - name: Install JFrog CLI
         uses: jfrog/setup-jfrog-cli@v4
         env:
-          # JFrog platform url (for example: https://acme.jfrog.io)
           JF_URL: ${{ secrets.JF_URL }} 
-          # JFrog Platform access token
           JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
 
-      
       - name: Verify JFrog CLI Installation
         run: jfrog -v
-            
- 
-      - name: Run JFrog CLI
-            
+
+      - name: Configure JFrog CLI and Push Docker Image
+        env:
+          JF_URL: ${{ secrets.JF_URL }}
+          JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
         run: |
-          #jfrog rt docker-push yalina/yalina:myapp devnet-ya--virtual-version1/yalina:myapp
-          #jfrog rt docker-push yalina/yalina:myapp --url=https://soleng.jfrog.io/artifactory/devnet-ya--virtual-version1/
           echo $JF_ACCESS_TOKEN | docker login $JF_URL --username=${{ secrets.JF_USERNAME }} --password-stdin
-          jf docker push yalina/yalina:myapp devnet-ya--virtual-version1/yalina:myapp --url="$JF_URL" --access-token="$JF_ACCESS_TOKEN"
-          export JFROG_CLI_LOG_LEVEL='DEBUG'
-          # Ping the server
+          jf docker push your-registry-domain/path/yalina:myapp devnet-ya--virtual-version1/yalina:myapp --url="$JF_URL"
           jf rt ping
-       
- 
