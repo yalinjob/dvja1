@@ -70,6 +70,8 @@ jobs:
         env:
           JF_URL: ${{ secrets.JF_URL }}
           JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
+          JF_USERNAME: ${{ secrets.JF_USERNAME }}
+          
         run: |
           echo $JF_ACCESS_TOKEN | docker login $JF_URL --username=${{ secrets.JF_USERNAME }} --password-stdin
           jf docker push yalina/yalina:myapp devnet-ya--virtual-version1/yalina:myapp --url="$JF_URL"
