@@ -68,14 +68,8 @@ jobs:
       - name: Pull Docker image from Docker Hub
         run: docker pull yalina/yalina:myapp
 
-      - name: Login to JFrog Artifactory and Push Docker Image
-        env:
-          JF_URL: ${{ secrets.JF_URL }}
-          JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
-          JF_USER: ${{secrets.JF_USER}}
-          
-        run: |
-          jf rt ping
-          echo $JF_ACCESS_TOKEN | docker login $JF_URL --username=$JF_USER --password-stdin
-          docker tag yalina/yalina:myapp $JF_URL/devnet-ya--virtual-version1/yalina:myapp
-          docker push $JF_URL/devnet-ya--virtual-version1/yalina:myapp
+      - name: Login to JFrog Artifactory Docker registry
+        run: echo "${{ secrets.JF_ACCESS_TOKEN }}" | docker login ${{ secrets.JF_URL }} --username="${{ secrets.JF_USER }}" --password-stdin
+
+      - name: Push Docker image to JFrog Artifactory
+        run: docker push ${{ secrets.JF_URL }}/devnet-ya--virtual-version1/myapp:latest
