@@ -81,7 +81,7 @@ jobs:
         run: echo "${{ secrets.JF_ACCESS_TOKEN }}" | docker login ${{ secrets.JF_URL }} --username="${{ secrets.JF_USER }}" --password-stdin
 
       - name: Push Docker image to JFrog Artifactory
-        run: docker push ${{ secrets.JF_URL }}/devnet-ya--virtual-version1/myapp:latest
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/myapp:latest ${{ secrets.JF_URL }}/devnet-ya--virtual-version1/myapp:latest
 
 
         
