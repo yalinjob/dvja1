@@ -11,7 +11,6 @@ on:
           - info
           - warning
           - debug
-
   push:
     branches:
       - main
@@ -25,6 +24,7 @@ on:
 
 env:
   JFROG_CLI_LOG_LEVEL: 'DEBUG'
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -45,7 +45,7 @@ jobs:
         run: echo "${{ secrets.DOCKER_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
      
 
-      - name: Build and push Docker image
+      - name: Build and push Docker image to Docker Hub
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -53,10 +53,6 @@ jobs:
           push: true
           tags: yalina/yalina:myapp
 
-
-
-
-          
       - name: Install JFrog CLI
         uses: jfrog/setup-jfrog-cli@v4
         env:
@@ -69,16 +65,16 @@ jobs:
       - name: Check DNS Resolution
         run: nslookup soleng.jfrog.io
 
-      - name: Configure JFrog CLI and Push Docker Image
+      - name: Pull Docker image from Docker Hub
+        run: docker pull yalina/yalina:myapp
+
+      - name: Login to JFrog Artifactory and Push Docker Image
         env:
           JF_URL: ${{ secrets.JF_URL }}
           JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
-          #JF_USER: ${{ secrets.JF_USER }}
+          JF_USER: ${{secrets.JF_URL}}
           
         run: |
-          jf rt ping
-          #docker login soleng.jfrog.io -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_ACCESS_TOKEN}}
-          #echo $JF_ACCESS_TOKEN | docker login $JF_URL --username=$JF_USER --password-stdin
-          echo $JF_ACCESS_TOKEN | docker login $JF_URL 
-          jf docker push yalina/yalina:myapp devnet-ya--virtual-version1/yalina:myapp --url="$JF_URL"
-          
+          echo $JF_ACCESS_TOKEN | docker login $JF_URL --username=$JF_USER --password-stdin
+          docker tag yalina/yalina:myapp $JF_URL/devnet-ya--virtual-version1/yalina:myapp
+          docker push $JF_URL/devnet-ya--virtual-version1/yalina:myapp
