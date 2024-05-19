@@ -73,6 +73,9 @@ jobs:
           JF_USERNAME: ${{ secrets.JF_USERNAME }}
           
         run: |
-          echo $JF_ACCESS_TOKEN | docker login $JF_URL --username=${{ secrets.JF_USERNAME }} --password-stdin
-          jf docker push yalina/yalina:myapp devnet-ya--virtual-version1/yalina:myapp --url="$JF_URL"
           jf rt ping
+          docker login soleng.jfrog.io -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_ACCESS_TOKEN}}
+
+          #echo $JF_ACCESS_TOKEN | docker login $JF_URL --username=${{ secrets.JF_USERNAME }} --password-stdin
+          jf docker push yalina/yalina:myapp devnet-ya--virtual-version1/yalina:myapp --url="$JF_URL"
+          
