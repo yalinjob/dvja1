@@ -26,6 +26,12 @@ on:
 
 env:
   JFROG_CLI_LOG_LEVEL: 'DEBUG'
+  JFROG_CLI_ENV_EXCLUDE: '*password*;*secret*;*key*;*token*;*auth*;JF_ARTIFACTORY_*;JF_ENV_*;JF_URL;JF_USER;JF_PASSWORD;JF_ACCESS_TOKEN'
+  JFROG_CLI_OFFER_CONFIG: 'false'
+  JFROG_CLI_BUILD_NAME: 'One Scan'
+  JFROG_CLI_BUILD_NUMBER: '159'
+  JFROG_CLI_BUILD_URL: 'https://github.com/yalinjob/dvja1/actions/runs/9210660988'
+  JFROG_CLI_USER_AGENT: 'setup-jfrog-cli-github-action/4.0.2'
 
 jobs:
   build:
@@ -33,6 +39,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Install JFrog CLI
         uses: jfrog/setup-jfrog-cli@v4
         with:
@@ -41,26 +48,28 @@ jobs:
       - name: Verify JFrog CLI Installation
         run: jfrog -v
 
-
       - name: Check DNS Resolution
         run: nslookup soleng.jfrog.io
-        
-      - name: Verify JFrog Artifactory User and Token
+
+      - name: Configure JFrog CLI
         run: |
-          echo "JF_USER: ${{ secrets.JF_USER }}"
-          echo "JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}"
-          curl -u ${{ secrets.JF_USER }}:${{ secrets.JF_ACCESS_TOKEN }} ${{ secrets.JF_URL }}/artifactory/api/system/ping
-
-      - if: always()   
-        name: Feature Branch Repository Update
-        run: jf mvnc --repo-resolve-releases=devnet-ya--virtul-version1-mv --repo-resolve-snapshots=devnet-ya--virtul-version1-mv --repo-deploy-releases=devnet-ya--virtul-version1-mv --repo-deploy-snapshots=devnet-ya--virtul-version1-mv
-    
-        
+          jfrog config add my-server-id \
+            --artifactory-url=${{ secrets.JF_URL }} \
+            --user=${{ secrets.JF_USER }} \
            
-      - name: Maven Build
-        run: jf mvn clean install
+            --access-token=${{ secrets.JF_ACCESS_TOKEN }} \
+            --interactive=false
+          jfrog config use my-server-id
 
-  
+      - name: Verify JFrog Artifactory User and Token
+        run: curl -u ${{ secrets.JF_USER }}:${{ secrets.JF_ACCESS_TOKEN }} ${{ secrets.JF_URL }}/artifactory/api/system/ping
+
+      - name: Feature Branch Repository Update
+        run: jfrog mvnc --server-id-resolve=my-server-id --repo-resolve-releases=devnet-ya--virtul-version1-mv --repo-resolve-snapshots=devnet-ya--virtul-version1-mv --repo-deploy-releases=devnet-ya--virtul-version1-mv --repo-deploy-snapshots=devnet-ya--virtul-version1-mv
+
+      - name: Maven Build
+        run: jfrog mvn clean install
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
@@ -69,11 +78,6 @@ jobs:
           push: true
           tags: yalina/yalina:myapp
 
-
-
       - name: Push Docker image to JFrog Artifactory
-        run: docker push  soleng.jfrog.io/devnet-ya--virtual-version1/myapp:latest
-        #run: docker push yalina/yalina:myapp  devnet-ya--virtual-version1/myapp:latest
+        run: docker push soleng.jfrog.io/devnet-ya--virtual-version1/myapp:latest
 
-
-        
