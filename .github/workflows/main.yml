@@ -2,17 +2,6 @@ name: One Scan
 
 on:
   workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
-        type: choice
-        options:
-          - info
-          - warning
-          - debug
-
   push:
     branches:
       - main
@@ -25,13 +14,13 @@ on:
       - dev
 
 env:
-  JFROG_CLI_LOG_LEVEL: 'DEBUG'
+  JFROG_CLI_LOG_LEVEL: DEBUG
   JFROG_CLI_ENV_EXCLUDE: '*password*;*secret*;*key*;*token*;*auth*;JF_ARTIFACTORY_*;JF_ENV_*;JF_URL;JF_USER;JF_PASSWORD;JF_ACCESS_TOKEN'
-  JFROG_CLI_OFFER_CONFIG: 'false'
-  JFROG_CLI_BUILD_NAME: 'One Scan'
-  JFROG_CLI_BUILD_NUMBER: '159'
+  JFROG_CLI_OFFER_CONFIG: false
+  JFROG_CLI_BUILD_NAME: One Scan
+  JFROG_CLI_BUILD_NUMBER: 159
   JFROG_CLI_BUILD_URL: 'https://github.com/yalinjob/dvja1/actions/runs/9210660988'
-  JFROG_CLI_USER_AGENT: 'setup-jfrog-cli-github-action/4.0.2'
+  JFROG_CLI_USER_AGENT: setup-jfrog-cli-github-action/4.0.2
 
 jobs:
   build:
@@ -48,9 +37,6 @@ jobs:
       - name: Verify JFrog CLI Installation
         run: jfrog -v
 
-      - name: Check DNS Resolution
-        run: nslookup soleng.jfrog.io
-
       - name: Configure JFrog CLI
         run: |
           jfrog config add my-server-id \
@@ -63,11 +49,16 @@ jobs:
       - name: Verify JFrog Artifactory User and Token
         run: curl -u ${{ secrets.JF_USER }}:${{ secrets.JF_ACCESS_TOKEN }} ${{ secrets.JF_URL }}/artifactory/api/system/ping
 
-      - name: Feature Branch Repository Update
-        run: jfrog mvnc --server-id-resolve=my-server-id --repo-resolve-releases=devnet-ya--virtul-version1-mv --repo-resolve-snapshots=devnet-ya--virtul-version1-mv --repo-deploy-releases=devnet-ya--virtul-version1-mv --repo-deploy-snapshots=devnet-ya--virtul-version1-mv
+      - name: Configure Maven Settings
+        run: |
+          mkdir -p ~/.m2
+          echo '<settings><servers><server><id>my-repo</id><username>${{ secrets.JF_USER }}</username><password>${{ secrets.JF_ACCESS_TOKEN }}</password></server></servers></settings>' > ~/.m2/settings.xml
 
-      - name: Maven Build
-        run: jfrog mvn clean install -X
+      - name: Feature Branch Repository Update
+        run: jf mvnc --server-id-resolve=my-server-id --repo-resolve-releases=devnet-ya--virtul-version1-mv --repo-resolve-snapshots=devnet-ya--virtul-version1-mv --repo-deploy-releases=devnet-ya--virtul-version1-mv --repo-deploy-snapshots=devnet-ya--virtul-version1-mv
+
+      - name: Maven Build with Debug
+        run: jf mvn clean install -X
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
