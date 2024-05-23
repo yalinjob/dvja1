@@ -36,7 +36,16 @@ jobs:
 
       - name: Verify JFrog CLI Installation
         run: jfrog -v
-
+        
+      - name: Check DNS Resolution
+        run: nslookup soleng.jfrog.io
+        
+      - name: Verify JFrog Artifactory User and Token
+        run: |
+          echo "JF_USER: ${{ secrets.JF_USER }}"
+          echo "JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}"
+          curl -u ${{ secrets.JF_USER }}:${{ secrets.JF_ACCESS_TOKEN }} ${{ secrets.JF_URL }}/artifactory/api/system/ping
+          
       - name: Configure JFrog CLI
         run: |
           jfrog config add my-server-id \
@@ -46,8 +55,8 @@ jobs:
             --interactive=false
           jfrog config use my-server-id
 
-      - name: Verify JFrog Artifactory User and Token
-        run: curl -u ${{ secrets.JF_USER }}:${{ secrets.JF_ACCESS_TOKEN }} ${{ secrets.JF_URL }}/artifactory/api/system/ping
+     # - name: Verify JFrog Artifactory User and Token
+     #  run: curl -u ${{ secrets.JF_USER }}:${{ secrets.JF_ACCESS_TOKEN }} ${{ secrets.JF_URL }}/artifactory/api/system/ping
 
       - name: Ping Artifactory
         run: jf rt ping
