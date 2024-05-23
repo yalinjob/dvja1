@@ -49,10 +49,13 @@ jobs:
       - name: Verify JFrog Artifactory User and Token
         run: curl -u ${{ secrets.JF_USER }}:${{ secrets.JF_ACCESS_TOKEN }} ${{ secrets.JF_URL }}/artifactory/api/system/ping
 
-      - name: Configure Maven Settings
+      - name: Ping Artifactory
+        run: jf rt ping
+
+      - name: Set Environment Variables
         run: |
-          mkdir -p ~/.m2
-          echo '<settings><servers><server><id>my-repo</id><username>${{ secrets.JF_USER }}</username><password>${{ secrets.JF_ACCESS_TOKEN }}</password></server></servers></settings>' > ~/.m2/settings.xml
+         echo "::set-env name=repository::$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//_/g')"
+         echo $repository
 
       - name: Feature Branch Repository Update
         run: jf mvnc --server-id-resolve=my-server-id --repo-resolve-releases=devnet-ya--virtul-version1-mv --repo-resolve-snapshots=devnet-ya--virtul-version1-mv --repo-deploy-releases=devnet-ya--virtul-version1-mv --repo-deploy-snapshots=devnet-ya--virtul-version1-mv
