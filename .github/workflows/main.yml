@@ -39,12 +39,13 @@ jobs:
         
       - name: Check DNS Resolution
         run: nslookup soleng.jfrog.io
-        
+
       - name: Verify JFrog Artifactory User and Token
         run: |
           echo "JF_USER: ${{ secrets.JF_USER }}"
           echo "JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}"
-          curl -u ${{ secrets.JF_USER }}:${{ secrets.JF_ACCESS_TOKEN }} ${{ secrets.JF_URL }}/artifactory/api/system/ping
+          echo "JF_URL: ${{ secrets.JF_URL }}"
+          curl -v -u ${{ secrets.JF_USER }}:${{ secrets.JF_ACCESS_TOKEN }} ${{ secrets.JF_URL }}/artifactory/api/system/ping
           
       - name: Configure JFrog CLI
         run: |
@@ -55,15 +56,12 @@ jobs:
             --interactive=false
           jfrog config use my-server-id
 
-     # - name: Verify JFrog Artifactory User and Token
-     #  run: curl -u ${{ secrets.JF_USER }}:${{ secrets.JF_ACCESS_TOKEN }} ${{ secrets.JF_URL }}/artifactory/api/system/ping
-
       - name: Ping Artifactory
         run: jf rt ping
 
       - name: Set Environment Variables
         run: |
-         echo "::set-env name=repository::$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//_/g')"
+         echo "repository=$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//_/g')" >> $GITHUB_ENV
          echo $repository
 
       - name: Feature Branch Repository Update
@@ -72,7 +70,7 @@ jobs:
       - name: Maven Build with Debug
         run: jf mvn clean install -X
 
-      - name: Build and push Docker image
+      - name: Build and Push Docker Image
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -80,5 +78,5 @@ jobs:
           push: true
           tags: yalina/yalina:myapp
 
-      - name: Push Docker image to JFrog Artifactory
+      - name: Push Docker Image to JFrog Artifactory
         run: docker push soleng.jfrog.io/devnet-ya--virtual-version1/myapp:latest
