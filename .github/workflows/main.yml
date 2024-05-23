@@ -45,12 +45,12 @@ jobs:
           echo "JF_USER: ${{ secrets.JF_USER }}"
           echo "JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}"
           echo "JF_URL: ${{ secrets.JF_URL }}"
-          curl -v -u ${{ secrets.JF_USER }}:${{ secrets.JF_ACCESS_TOKEN }} ${{ secrets.JF_URL }}/api/system/ping
+          curl -u ${{ secrets.JF_USER }}:${{ secrets.JF_ACCESS_TOKEN }} ${{ secrets.JF_URL }}/artifactory/api/system/ping
           
       - name: Configure JFrog CLI
         run: |
           jfrog config add my-server-id \
-            --artifactory-url=${{ secrets.JF_URL }} \
+            --artifactory-url=${{ secrets.JF_URL }}/artifactory \
             --user=${{ secrets.JF_USER }} \
             --access-token=${{ secrets.JF_ACCESS_TOKEN }} \
             --interactive=false
