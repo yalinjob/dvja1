@@ -67,7 +67,7 @@ jobs:
         run: jfrog mvnc --server-id-resolve=my-server-id --repo-resolve-releases=devnet-ya--virtul-version1-mv --repo-resolve-snapshots=devnet-ya--virtul-version1-mv --repo-deploy-releases=devnet-ya--virtul-version1-mv --repo-deploy-snapshots=devnet-ya--virtul-version1-mv
 
       - name: Maven Build
-        run: jfrog mvn clean install
+        run: jfrog mvn clean install -X
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
