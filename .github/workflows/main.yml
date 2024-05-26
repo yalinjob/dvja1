@@ -67,16 +67,24 @@ jobs:
       - name: Feature Branch Repository Update
         run: jf mvnc --server-id-resolve=my-server-id --repo-resolve-releases=devnet-ya--virtul-version1-mv --repo-resolve-snapshots=devnet-ya--virtul-version1-mv --repo-deploy-releases=devnet-ya--virtul-version1-mv --repo-deploy-snapshots=devnet-ya--virtul-version1-mv
 
-      - name: Maven Build with Debug
-        run: jf mvn clean install -X
+      - name: Maven Build
+        run: |
+         jf mvn clean install | tee maven_build.log
 
-      - name: Build and Push Docker Image
+      - name: Upload Maven Build Log
+        uses: actions/upload-artifact@v2
+        with:
+          name: maven-build-log
+          path: maven_build.log
+
+
+      - name: Log in to JFrog Artifactory Docker Registry
+        run: docker login soleng.jfrog.io -u ${{ secrets.JF_USER }} --password "${{ secrets.JF_ACCESS_TOKEN }}"
+        
+      - name: Build and Push Docker Image to Artifactory
         uses: docker/build-push-action@v2
         with:
-          context: .
-          file: Dockerfile
-          push: true
-          tags: yalina/yalina:myapp
-
-      - name: Push Docker Image to JFrog Artifactory
-        run: docker push soleng.jfrog.io/devnet-ya--virtual-version1/myapp:latest
+         context: .
+         file: Dockerfile
+         push: true
+         tags: soleng.jfrog.io/devnet-ya--virtual-version1/myapp:latest
