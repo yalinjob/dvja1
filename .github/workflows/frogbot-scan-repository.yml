@@ -42,4 +42,4 @@ jobs:
 
           # [Mandatory]
           # The name of the branch on which Frogbot will perform the scan
-          JF_GIT_BASE_BRANCH: ${{ fix_10_03.branch }}
+          JF_GIT_BASE_BRANCH: ${{ fix_issue_10_03.branch }}
