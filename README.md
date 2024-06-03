@@ -24,6 +24,8 @@ docker-compose build
 ## Configuration
 
 ### Database
+###
+Yalin ###
 
 Create MySQL database and credentials and configure the same in:
 
