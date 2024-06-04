@@ -55,28 +55,26 @@ jobs:
             --access-token=${{ secrets.JF_ACCESS_TOKEN }} \
             --interactive=false
           jfrog config use my-server-id
-
       - name: Ping Artifactory
-        run: jf rt ping
+        run: jfrog rt ping
 
       - name: Set Environment Variables
         run: |
-         echo "repository=$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//_/g')" >> $GITHUB_ENV
-         echo $repository
-
+          echo "repository=$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//_/g')" >> $GITHUB_ENV
+          echo $repository
+          
       - name: Feature Branch Repository Update
-        run: jf mvnc --server-id-resolve=my-server-id --repo-resolve-releases=devnet-ya--virtul-version1-mv --repo-resolve-snapshots=devnet-ya--virtul-version1-mv --repo-deploy-releases=devnet-ya--virtul-version1-mv --repo-deploy-snapshots=devnet-ya--virtul-version1-mv
+        run: jfrog mvnc --server-id-resolve=my-server-id --repo-resolve-releases=devnet-ya--virtul-version1-mv --repo-resolve-snapshots=devnet-ya--virtul-version1-mv --repo-deploy-releases=devnet-ya--virtul-version1-mv --repo-deploy-snapshots=devnet-ya--virtul-version1-mv
 
       - name: Maven Build
         run: |
-         jf mvn clean install | tee maven_build.log
-
+          jfrog mvn clean install | tee maven_build.log
+          
       - name: Upload Maven Build Log
         uses: actions/upload-artifact@v2
         with:
           name: maven-build-log
           path: maven_build.log
-
 
       - name: Log in to JFrog Artifactory Docker Registry
         run: docker login soleng.jfrog.io -u ${{ secrets.JF_USER }} --password "${{ secrets.JF_ACCESS_TOKEN }}"
@@ -84,7 +82,7 @@ jobs:
       - name: Build and Push Docker Image to Artifactory
         uses: docker/build-push-action@v2
         with:
-         context: .
-         file: Dockerfile
-         push: true
-         tags: soleng.jfrog.io/devnet-ya--virtual-version1/myappversion3:version3
+          context: .
+          file: Dockerfile
+          push: true
+          tags: soleng.jfrog.io/devnet-ya--virtual-version1/myappversion3:version3
