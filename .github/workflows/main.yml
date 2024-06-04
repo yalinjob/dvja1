@@ -87,4 +87,4 @@ jobs:
          context: .
          file: Dockerfile
          push: true
-         tags: soleng.jfrog.io/devnet-ya--virtual-version1/myappversion2:version2
+         tags: soleng.jfrog.io/devnet-ya--virtual-version1/myappversion3:version3
