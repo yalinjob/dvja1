@@ -15,3 +15,4 @@ RUN chmod 755 /app/scripts/start.sh
 
 EXPOSE 8080
 CMD ["sh", "-c", "/app/scripts/start.sh"]
+
