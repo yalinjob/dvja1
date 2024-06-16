@@ -86,4 +86,6 @@ jobs:
        #   file: Dockerfile
        #   push: true
        #   tags: soleng.jfrog.io/devnet-ya--virtual-version1/myappversion3:version3
+
+       
           
