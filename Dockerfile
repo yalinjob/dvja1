@@ -10,7 +10,7 @@ COPY pom.xml pom.xml
 RUN mvn dependency:resolve
 
 COPY . .
-RUN mvn clean package -X 
+RUN mvn clean install -e
 RUN chmod 755 /app/scripts/start.sh
 
 EXPOSE 8080
