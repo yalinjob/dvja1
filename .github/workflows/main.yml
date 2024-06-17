@@ -40,7 +40,7 @@ jobs:
 
       - name: Verify maven and javaInstallation
         run: |
-          maven -v
+          mvn -v
           java -v
 
           
