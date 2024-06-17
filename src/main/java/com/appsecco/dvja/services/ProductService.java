@@ -17,7 +17,7 @@ import java.util.List;
 public class ProductService {
     private static final Logger logger = Logger.getLogger(ProductService.class);
     private EntityManager entityManager;
-    @PersistenceContext
+  
     @PersistenceContext
     public void setEntityManager(EntityManager em) {
         this.entityManager = em;
