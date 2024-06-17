@@ -1,4 +1,4 @@
-FROM openjdk:11
+FROM openjdk:17
 MAINTAINER Abhisek Datta <abhisek@appsecco.com>
 
 RUN apt-get update
