@@ -37,13 +37,11 @@ jobs:
       - name: Verify JFrog CLI Installation
         run: jfrog -v
 
-
-      - name: Verify maven and javaInstallation
+      - name: Verify Maven and Java Installation  # Corrected step name
         run: |
-          mvn -v
-          java -v
+          mvn -v  # Corrected command for Maven version check
+          java -version  # Corrected command for Java version check
 
-          
       - name: Check DNS Resolution
         run: nslookup soleng.jfrog.io
 
@@ -92,9 +90,7 @@ jobs:
         with:
           platforms: "linux/amd64,linux/arm64"
      
-
-        # docker image build
-      - name: Build and Push Docker image
+      - name: Build and Push Docker Image
         uses: docker/build-push-action@v5
         id: build
         with:
@@ -102,9 +98,3 @@ jobs:
           push: true
           platforms: linux/amd64 #, linux/arm64
           tags: soleng.jfrog.io/devnet-ya--virtual-version1/myappversion3:version3
-
-        
-
-
-       
-          
