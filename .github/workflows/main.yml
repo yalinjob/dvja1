@@ -36,7 +36,14 @@ jobs:
 
       - name: Verify JFrog CLI Installation
         run: jfrog -v
-        
+
+
+      - name: Verify maven and javaInstallation
+        run: |
+          maven -v
+          java -v
+
+          
       - name: Check DNS Resolution
         run: nslookup soleng.jfrog.io
 
