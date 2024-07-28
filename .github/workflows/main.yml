@@ -69,7 +69,8 @@ jobs:
         run: |
           echo "repository=$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//_/g')" >> $GITHUB_ENV
           echo $repository
-          
+
+           #including policy 
       - name: Feature Branch Repository Update
         run: jfrog mvnc --server-id-resolve=my-server-id --repo-resolve-releases=devnet-ya--virtul-version1-mv --repo-resolve-snapshots=devnet-ya--virtul-version1-mv --repo-deploy-releases=devnet-ya--virtul-version1-mv --repo-deploy-snapshots=devnet-ya--virtul-version1-mv
 
@@ -86,7 +87,7 @@ jobs:
       - name: Log in to JFrog Artifactory Docker Registry
         run: docker login soleng.jfrog.io -u ${{ secrets.JF_USER }} --password "${{ secrets.JF_ACCESS_TOKEN }}"
 
-         
+        
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
         with:
