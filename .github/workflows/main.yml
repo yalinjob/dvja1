@@ -100,7 +100,8 @@ jobs:
           file: Dockerfile
           push: true
           platforms: linux/amd64 #, linux/arm64
-          tags: soleng.jfrog.io/devnet-ya--virtual-version1/myappversion4:version4
+          tags: soleng.jfrog.io/devnet-ya--virtual-version1/myappversion5:version5
+          run : jf docker scan soleng.jfrog.io/devnet-ya--virtual-version1/myappversion5:version5
 
 
           
