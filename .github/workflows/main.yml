@@ -102,12 +102,6 @@ jobs:
           platforms: linux/amd64 #, linux/arm64
           tags: soleng.jfrog.io/devnet-ya--virtual-version1/myappversion6:version6
           
-      - name: Run JFrog Scan
-        run: jf docker scan soleng.jfrog.io/devnet-ya--virtual-version1/myappversion6:version6     
-        env:
-          JFROG_CLI_OFFER_CONFIG: "false"
-          JFROG_CLI_ARTIFACTORY_URL: ${{ secrets.JF_URL }}
-          JFROG_CLI_ARTIFACTORY_USERNAME: ${{ secrets.JF_USER }}
-          JFROG_CLI_ARTIFACTORY_PASSWORD: ${{ secrets.JF_ACCESS_TOKEN }}
+   
 
           
