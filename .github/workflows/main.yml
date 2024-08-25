@@ -80,7 +80,13 @@ jobs:
 
       - name: Maven Audit 
         run: |
-          jf audit --mvn --fail=false
+           jfrog config add my-server-id \
+            --artifactory-url=${{ secrets.JF_URL }}/artifactory \
+            --user=${{ secrets.JF_USER }} \
+            --access-token=${{ secrets.JF_ACCESS_TOKEN }} \
+            --interactive=false
+           jfrog config use my-server-id
+           jf audit --mvn --fail=false
           
       - name: Upload Maven Build Log
         uses: actions/upload-artifact@v2
