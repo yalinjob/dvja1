@@ -79,13 +79,8 @@ jobs:
           jfrog mvn clean install | tee maven_build.log
 
       - name: Maven Audit 
-        run: |
-            --artifactory-url=${{ secrets.JF_URL }}/artifactory \
-            --user=${{ secrets.JF_USER }} \
-            --access-token=${{ secrets.JF_ACCESS_TOKEN }} \
-            --interactive=false
-          
-            jf audit --mvn --fail=false
+        run: |            
+          jf audit --sast --sast --sca3 --fail=false
           
       - name: Upload Maven Build Log
         uses: actions/upload-artifact@v2
