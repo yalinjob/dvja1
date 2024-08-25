@@ -85,7 +85,7 @@ jobs:
             --user=${{ secrets.JF_USER }} \
             --access-token=${{ secrets.JF_ACCESS_TOKEN }} \
             --interactive=false
-           jfrog config use my-server-id
+          
            jf audit --mvn --fail=false
           
       - name: Upload Maven Build Log
