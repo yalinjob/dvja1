@@ -80,7 +80,8 @@ jobs:
 
       - name: Maven Audit 
         run: |            
-          jf audit --sast --sca --fail=false
+          jf audit --mvn --fail=false
+          
           
       - name: Upload Maven Build Log
         uses: actions/upload-artifact@v2
