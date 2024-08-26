@@ -72,18 +72,12 @@ jobs:
           
       -  name: Maven Audit 
          run: |   
-          jfrog config add soleng \
-           --artifactory-url=${{ secrets.JF_URL }}/artifactory \
+          jfrog config add soleng \  
            --xray-url=https://soleng.jfrog.io/xray/ \
            --user=${{ secrets.JF_USER }} \
            --access-token=${{ secrets.JF_ACCESS_TOKEN }} 
           jfrog rt ping
-          jf audit --mvn --fail=false
-
-             
-
-
-          
+          jf audit --mvn --fail=false 
 
            #including policy 
       - name: Feature Branch Repository Update
