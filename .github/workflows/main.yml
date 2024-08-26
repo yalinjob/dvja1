@@ -69,16 +69,16 @@ jobs:
         run: |
           echo "repository=$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//_/g')" >> $GITHUB_ENV
           echo $repository
-
       -  name: Maven Audit 
          run: |   
-            jf c add soleng \ 
-            --artifactory-url=https://soleng.jfrog.io/artifactory/ \
-            --xray-url=https://soleng.jfrog.io/xray/ \
-            --user=yalin_a \
-            --password=HarMiron7!
-            jf audit --mvn --fail=false
-            
+          jf c add soleng \
+           --artifactory-url=https://soleng.jfrog.io/artifactory/ \
+           --xray-url=https://soleng.jfrog.io/xray/ \
+           --user=yalin_a \
+           --password=HarMiron7!
+          jf audit --mvn --fail=false
+
+             
 
 
           
