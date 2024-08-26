@@ -70,6 +70,13 @@ jobs:
           echo "repository=$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//_/g')" >> $GITHUB_ENV
           echo $repository
 
+     
+      - name: Maven Audit 
+        run: |   
+          jf c add --url= https://soleng.jfrog.io/xray/ --user=yalin_a --password=Harmiron7! 
+          jf audit --mvn --fail=false
+          
+
            #including policy 
       - name: Feature Branch Repository Update
         run: jfrog mvnc --server-id-resolve=my-server-id --repo-resolve-releases=devnet-ya--virtul-version1-mv --repo-resolve-snapshots=devnet-ya--virtul-version1-mv --repo-deploy-releases=devnet-ya--virtul-version1-mv --repo-deploy-snapshots=devnet-ya--virtul-version1-mv
@@ -78,10 +85,6 @@ jobs:
         run: |
           jfrog mvn clean install | tee maven_build.log
 
-      - name: Maven Audit 
-        run: |            
-          jf audit --mvn --fail=false
-          
           
       - name: Upload Maven Build Log
         uses: actions/upload-artifact@v2
