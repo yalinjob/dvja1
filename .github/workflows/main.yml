@@ -76,7 +76,7 @@ jobs:
            --artifactory-url=${{ secrets.JF_URL }}/artifactory \
            --xray-url=https://soleng.jfrog.io/xray/ \
            --user=${{ secrets.JF_USER }} \
-           --access-token=${{ secrets.JF_ACCESS_TOKEN }} \
+           --access-token=${{ secrets.JF_ACCESS_TOKEN }} 
           jfrog rt ping
           jf audit --mvn --fail=false
 
