@@ -76,7 +76,7 @@ jobs:
             --artifactory-url=https://soleng.jfrog.io/artifactory/ \
             --xray-url=https://soleng.jfrog.io/xray/ \
             --user=yalin_a \
-            --password=Harmiron7!
+            --password=HarMiron7!
             jf audit --mvn --fail=false
 
 
