@@ -72,7 +72,7 @@ jobs:
           
       -  name: Maven Audit 
          run: |   
-          jf c add soleng \
+          jfrog config add my-server-id \
            --artifactory-url=${{ secrets.JF_URL }}/artifactory \
            --xray-url=https://soleng.jfrog.io/xray/ \
            --user=${{ secrets.JF_USER }} \
