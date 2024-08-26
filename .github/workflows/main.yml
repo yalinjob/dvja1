@@ -56,7 +56,7 @@ jobs:
           
       - name: Configure JFrog CLI
         run: |
-          jfrog config add soleng \
+          jfrog config add my-server-id \
             --artifactory-url=${{ secrets.JF_URL }}/artifactory \
             --user=${{ secrets.JF_USER }} \
             --access-token=${{ secrets.JF_ACCESS_TOKEN }} \
@@ -72,7 +72,7 @@ jobs:
           
       -  name: Maven Audit 
          run: |   
-          jfrog config add my-server-id \
+          jfrog config add soleng \
            --artifactory-url=${{ secrets.JF_URL }}/artifactory \
            --xray-url=https://soleng.jfrog.io/xray/ \
            --user=${{ secrets.JF_USER }} \
