@@ -56,7 +56,7 @@ jobs:
           
       - name: Configure JFrog CLI
         run: |
-          jfrog config add my-server-id \
+          jfrog config add soleng \
             --artifactory-url=${{ secrets.JF_URL }}/artifactory \
             --user=${{ secrets.JF_USER }} \
             --access-token=${{ secrets.JF_ACCESS_TOKEN }} \
