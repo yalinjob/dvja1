@@ -72,8 +72,8 @@ jobs:
 
       -  name: Maven Audit 
          run: |   
-            jf c add soleng\ 
-            --artifactory-url=https://soleng.jfrog.io/ \
+            jf c add soleng \ 
+            --artifactory-url=https://soleng.jfrog.io/artifactory/ \
             --xray-url=https://soleng.jfrog.io/xray/ \
             --user=yalin_a \
             --password=HarMiron7!
