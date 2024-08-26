@@ -75,6 +75,9 @@ jobs:
         run: |   
           jf c add --url= https://soleng.jfrog.io/xray/ --user=yalin_a --password=Harmiron7! 
           jf audit --mvn --fail=false
+
+
+
           
 
            #including policy 
