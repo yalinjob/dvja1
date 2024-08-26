@@ -70,12 +70,14 @@ jobs:
           echo "repository=$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//_/g')" >> $GITHUB_ENV
           echo $repository
 
-     
-      - name: Maven Audit 
-        run: |   
-          jf c add --url= https://soleng.jfrog.io/xray/ --user=yalin_a --password=Harmiron7! 
-          jf audit --mvn --fail=false
-
+      -  name: Maven Audit 
+         run: |   
+            jf c add my-config \
+            --artifactory-url=https://soleng.jfrog.io/artifactory/ \
+            --xray-url=https://soleng.jfrog.io/xray/ \
+            --user=yalin_a \
+            --password=Harmiron7!
+            jf audit --mvn --fail=false
 
 
           
