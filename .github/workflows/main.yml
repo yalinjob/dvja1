@@ -72,9 +72,9 @@ jobs:
 
       -  name: Maven Audit 
          run: |   
-            jf c add my-config \
-            --artifactory-url=https://soleng.jfrog.io/artifactory/ \
-            --xray-url=https://soleng.jfrog.io/xray/ \
+            jf c add my-config \ 
+        
+            --url=https://soleng.jfrog.io/xray/ \
             --user=yalin_a \
             --password=HarMiron7!
             jf audit --mvn --fail=false
