@@ -114,7 +114,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        branch: ["main"]
+        branch: ["master"]
     steps:
       - uses: jfrog/frogbot@v2
         env:
