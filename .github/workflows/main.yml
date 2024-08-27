@@ -59,6 +59,7 @@ jobs:
         run: |
           jfrog config add my-server-id \
             --artifactory-url=${{ secrets.JF_URL }}/artifactory \
+            --xray-url=https://soleng.jfrog.io/xray/ \
             --user=${{ secrets.JF_USER }} \
             --access-token=${{ secrets.JF_ACCESS_TOKEN }} \
             --interactive=false
@@ -72,13 +73,7 @@ jobs:
           echo $repository
           
       -  name: Maven Audit 
-         run: |   
-          jfrog config add soleng \  
-           --artifactory-url=${{ secrets.JF_URL }}/artifactory \
-           --xray-url=https://soleng.jfrog.io/xray/ \
-           --user=${{ secrets.JF_USER }} \
-           --access-token=${{ secrets.JF_ACCESS_TOKEN }} 
-          jfrog config use soleng
+         run: |
           jfrog rt ping
           jf audit --mvn --fail=false 
 
