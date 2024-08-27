@@ -75,7 +75,7 @@ jobs:
       -  name: Maven Audit 
          run: |
           jfrog rt ping
-          jf audit --mvn --fail=false 
+          jf audit --sast --sca --without-contextual-analysis --fail=false 
 
            #including policy 
       - name: Feature Branch Repository Update
