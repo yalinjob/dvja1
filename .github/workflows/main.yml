@@ -78,6 +78,7 @@ jobs:
            --xray-url=https://soleng.jfrog.io/xray/ \
            --user=${{ secrets.JF_USER }} \
            --access-token=${{ secrets.JF_ACCESS_TOKEN }} 
+          jfrog config use soleng
           jfrog rt ping
           jf audit --mvn --fail=false 
 
