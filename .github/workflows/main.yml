@@ -85,6 +85,7 @@ jobs:
         run: |
           jfrog mvn clean install | tee maven_build.log
 
+
           
       - name: Upload Maven Build Log
         uses: actions/upload-artifact@v2
