@@ -48,6 +48,8 @@ jobs:
       - name: Check DNS Resolution
         run: nslookup soleng.jfrog.io
 
+        
+
       - name: Verify JFrog Artifactory User and Token
         run: |
           echo "JF_USER: ${{ secrets.JF_USER }}"
