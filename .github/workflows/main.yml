@@ -117,6 +117,17 @@ jobs:
           platforms: linux/amd64 #, linux/arm64
           tags: soleng.jfrog.io/devnet-ya--virtual-version1/myappversion6:version6
 
+
+      - name: Collect and Publish Build Info
+        run: |
+          # Collect environment variables for the build
+          jf rt bce
+          # Collect VCS details from git and add them to the build
+          jf rt bag
+          # Publish build info
+          jf rt bp ${{ vars.BUILD_NAME }} $GITHUB_RUN_NUMBER --project=yalina
+
+
   scan-repository:
     runs-on: ubuntu-latest
     strategy:
