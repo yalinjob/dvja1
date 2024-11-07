@@ -124,7 +124,7 @@ jobs:
           # Collect VCS details from git and add them to the build
           jf rt bag
           # Publish build info
-          jf rt bp ${{ vars.BUILD_NAME }} 
+          jf rt bp ${{ vars.BUILD_NAME }} $GITHUB_RUN_NUMBER --project=yalin
 
 
   scan-repository:
