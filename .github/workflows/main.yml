@@ -128,6 +128,7 @@ jobs:
           jf rt bp ${{ vars.BUILD_NAME }} $GITHUB_RUN_NUMBER --project=yalin
           # Scan build
           jfrog rt bs
+          if: always()
 
 
   scan-repository:
