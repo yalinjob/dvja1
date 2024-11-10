@@ -133,7 +133,7 @@ jobs:
           # Publish build info
           jf rt bp ${{ vars.BUILD_NAME }} $GITHUB_RUN_NUMBER --project=yalin
           # Scan build
-          jfrog  bs
+          jfrog bs ${{ vars.BUILD_NAME }} $GITHUB_RUN_NUMBER --fail=true --vuln --format table --rescan  --project=yalin_dev 
         if: always()
 
 
