@@ -134,10 +134,15 @@ jobs:
           # Publish build info
           jf rt bp ${{ vars.BUILD_NAME }} $GITHUB_RUN_NUMBER --project=yalin
           # Scan build
-          jf bs ${{ vars.BUILD_NAME }} $GITHUB_RUN_NUMBER --fail=false --vuln --format table --rescan --project=yalin   
+          #jf bs ${{ vars.BUILD_NAME }} $GITHUB_RUN_NUMBER --fail=false --vuln --format table --rescan --project=yalin   
         if: always()
 
+      - name: Scan Build
+        run: | 
+          jf bs ${{ vars.BUILD_NAME }} $GITHUB_RUN_NUMBER --fail=false --vuln --format table --rescan  --project=yalin
 
+          
+          
   scan-repository:
     runs-on: ubuntu-latest
     strategy:
