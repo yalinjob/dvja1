@@ -102,7 +102,7 @@ jobs:
 
           
       - name: Upload Maven Build Log
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: maven-build-log
           path: maven_build.log
