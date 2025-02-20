@@ -141,7 +141,7 @@ jobs:
 
       - name: Scan Build
         run: | 
-          jf bs ${{ vars.BUILD_NAME }} $GITHUB_RUN_NUMBER --fail=false --vuln --format table --rescan  --project=yalin
+          jf build-scan ${{ vars.BUILD_NAME }} $GITHUB_RUN_NUMBER --fail=false --vuln --format table --rescan  --project=yalin
 
           
           
