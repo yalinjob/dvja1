@@ -131,14 +131,14 @@ jobs:
           # Collect VCS details from git and add them to the build
           jf rt bag
           # Publish build info
-          jf rt bp ${{ vars.BUILD_NAME }} $GITHUB_RUN_NUMBER --project=yalin
+          jf rt bp ${{ vars.JFROG_CLI_BUILD_NAME }} $GITHUB_RUN_NUMBER --project=yalin
           # Scan build
-          #jf bs ${{ vars.BUILD_NAME }} $GITHUB_RUN_NUMBER --fail=false --vuln --format table --rescan --project=yalin   
+          #jf bs ${{ vars.JFROG_CLI_BUILD_NAME }} $GITHUB_RUN_NUMBER --fail=false --vuln --format table --rescan --project=yalin   
         if: always()
 
       - name: Scan Build
         run: | 
-          jf build-scan ${{ vars.BUILD_NAME }} $GITHUB_RUN_NUMBER --fail=false --vuln --format table --rescan  --project=yalin
+          jf build-scan ${{ vars.JFROG_CLI_BUILD_NAME }} $GITHUB_RUN_NUMBER --fail=false --vuln --format table --rescan  --project=yalin
 
           
           
