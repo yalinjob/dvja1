@@ -85,17 +85,17 @@ jobs:
          run: |
           jfrog rt ping
           #jf audit --mvn --fail=false 
-            jf audit 
+          # jf audit 
 
             
            #including policy 
       - name: Feature Branch Repository Update
         run: jfrog mvnc --server-id-resolve=my-server-id --repo-resolve-releases=devnet-ya--virtul-version1-mv --repo-resolve-snapshots=devnet-ya--virtul-version1-mv --repo-deploy-releases=devnet-ya--virtul-version1-mv --repo-deploy-snapshots=devnet-ya--virtul-version1-mv
-
+             jf audit 
       - name: Maven Build
         run: |
           jfrog mvn clean install | tee maven_build.log
-
+           
 
           
       - name: Upload Maven Build Log
